@@ -1,0 +1,39 @@
+# Ignore directory checking scripts
+check_environment.py
+
+# Ignore .idea files
+.idea/
+
+# Ignore Pipfile.lock
+*.lock
+
+# Ignore node_modules directory
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Ignore .env
+# dotenv environment variable files
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+.env
+certificate.pem
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
