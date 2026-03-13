@@ -1,0 +1,9 @@
+[project]
+name = "knowledge_graph_tools"
+version = "0.1.0"
+
+[project.scripts]
+kgtools = "codebase_kg.cli.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,2 @@
+[console_scripts]
+kgtools = codebase_kg.cli.cli:cli
