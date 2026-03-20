@@ -8,6 +8,7 @@ python-dotenv = "*"
 neo4j = "*"
 click = "*"
 pygithub = "*"
+pandas = "*"
 
 [dev-packages]
 flake8 = "*"

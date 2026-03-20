@@ -30,8 +30,9 @@ def create_command(method_name):
 
     @click.command(method_name)
     @click.option("--token", envvar="GITHUB_TOKEN")
+    @click.option("--output", default="repo_files.csv", help="Output CSV file")
     @click.pass_context
-    def cmd(ctx, token):
+    def cmd(ctx, token, output):
 
         service = GithubRepoService(token)
 
@@ -40,16 +41,25 @@ def create_command(method_name):
 
         method = getattr(service, method_name)
 
-        result = method(owner, repo)
+        # pass output only if method supports it
+        try:
+            result = method(owner, repo, output_csv=output)
+        except TypeError:
+            result = method(owner, repo)
 
-        # Pretty print dictionaries
         if isinstance(result, dict):
 
             click.echo(f"\n{method_name.upper()}")
             click.echo("-" * len(method_name))
 
             for k, v in result.items():
-                click.echo(f"{k}: {v}")
+
+                if k == "file_type_counts":
+                    click.echo("\nFile Type Distribution:")
+                    for ft, count in v.items():
+                        click.echo(f"  {ft}: {count}")
+                else:
+                    click.echo(f"{k}: {v}")
 
         else:
             click.echo(result)
