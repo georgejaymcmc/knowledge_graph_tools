@@ -217,7 +217,7 @@ class GithubRepoService:
     # -----------------------------
     # Public CLI-exposed method
     # -----------------------------
-    def file_types(self, owner, repo, output_csv="neo4j_imports/repo_files.csv"):
+    def file_types(self, owner, repo, output_csv="repo_files.csv"):
 
         files, unknown_exts = self._classify_files(owner, repo)
 
@@ -237,7 +237,7 @@ class GithubRepoService:
         output_path = output_folder / output_csv
 
         # Save CSV
-        df.to_csv(output_csv, index=False, encoding="utf-8")
+        df.to_csv(output_path, index=False, encoding="utf-8")
 
         # Frequency counts
         counts = df["File Type"].value_counts()
