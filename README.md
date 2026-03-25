@@ -32,9 +32,11 @@ The aims for the resulting knowledge graph are:
     A(PYTHON CLI)
     B(GITHUB)
     C(NEO4J)
+    D(GRADIO)
     
     A<-->B
     A<-->C
+    D-->C
 ```
 
 * Github - remains the repo for codebase
@@ -76,16 +78,16 @@ GITHUB_TOKEN=from-github
 	├── README.md
 	├── .env
     │
-	├── notebooks/					   # Experimental code + presentations
+	├── notebooks/					           # Experimental code + presentations
 	│
 	├── src/
 	│   └── codebase_kg/
 	.		.
 	│		├── services/                      # Backend integration APIs       
 	.               .          
-	│               ├─ cli/				   # Thin API interface layer 
+	│               ├─ cli/				       # Thin API interface layer 
 	.		.
-	│		├── schemas/			   # Software architecture schemas 
+	│		├── schemas/			           # Software architecture schemas 
 	.		.
 	│		├── data_kg/                       # Database metadata ingestion
 	.               .
@@ -93,9 +95,9 @@ GITHUB_TOKEN=from-github
 	.               .
 	│		└── graph_queries/                 # Deterministic graph intelligence
 	.
-	├── tests/					   # Test-driven development repo 
+	├── tests/					               # Test-driven development repo 
 	.
-	├── graphrag/                                      # Graph-LLM interaction
+	├── graphrag/                              # Graph-LLM interaction
 	.
-	└── docs/                                          # MkDocs code documentation site
+	└── docs/                                  # MkDocs code documentation site
 ```
