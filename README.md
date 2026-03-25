@@ -8,7 +8,7 @@ GitHub Repo
    ↓
 kgtools repo <repo> stats
    ↓
-kgtools repo <repo> tree
+kgtools repo <repo> file_types
    ↓
 kgtools repo <repo> parse   (future)
    ↓
@@ -42,7 +42,7 @@ The aims for the resulting knowledge graph are:
 	artefacts 
 
 * Neo4J - the storage option for the knowledge graph
-  * Examples use Neo4j Desktop
+  * Current tooling uses Neo4j Desktop
   * Possible to swap Neo4j for any number of alternative graph storage 
     technologies - RDF triplestores, Elasticsearch, etc
 
