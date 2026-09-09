@@ -86,11 +86,28 @@ class GithubRepoService:
         self._repo_cache = {}
 
     def _repo_data(self, owner, repo):
-        url = f"https://api.github.com/repos/{owner}/{repo}"
-        response = requests.get(url, headers=self.headers)
-        if response.status_code != 200:
-            raise RuntimeError(f"GitHub API error {response.status_code}")
-        return response.json()
+        """Get repository metadata, using the cache when available."""
+
+        cache_key = f"{owner}/{repo}"
+
+        if cache_key not in self._repo_cache:
+            url = f"https://api.github.com/repos/{owner}/{repo}"
+
+            response = requests.get(
+                url,
+                headers=self.headers,
+                timeout=10
+            )
+
+            if response.status_code != 200:
+                raise RuntimeError(
+                    f"GitHub API error {response.status_code}: "
+                    f"{response.text}"
+                )
+
+            self._repo_cache[cache_key] = response.json()
+
+        return self._repo_cache[cache_key]
 
     def description(self, owner, repo):
         return self._repo_data(owner, repo).get("description")

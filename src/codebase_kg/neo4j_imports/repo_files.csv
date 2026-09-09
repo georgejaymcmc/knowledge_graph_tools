@@ -50,12 +50,13 @@ Other,app/mac,set-channel-prefs-channel
 Other,app/mac,updater.tar.xz
 Other,app/mac,updater_renamer
 Other,app/mac,zotero.xz
-Other,app/scripts,8.0_release_build_and_deploy
+Other,app/scripts,9.0_release_build_and_deploy
 Other,app/scripts,add_omni_file
 Other,app/scripts,add_version_info
 Other,app/scripts,beta_build_and_deploy
-Other,app/scripts,build_and_deploy
 Other,app/scripts,build_and_run
+Other,app/scripts,build_for_deploy
+Other,app/scripts,check_app_matches_commit
 Other,app/scripts,check_requirements
 Other,app/scripts,codesign_local
 Python Script,app/scripts,createprecomplete.py
@@ -66,6 +67,7 @@ Other,app/scripts,fetch_rcedit
 Other,app/scripts,fetch_xulrunner
 Other,app/scripts,get_commit_files
 Other,app/scripts,get_repo_branch_hash
+Other,app/scripts,incremental_update
 Other,app/scripts,manage_incrementals
 Other,app/scripts,notarization_info
 Other,app/scripts,notarization_stapler
@@ -81,7 +83,6 @@ Shell,app/update-packaging,common.sh
 Shell,app/update-packaging,make_full_update.sh
 Shell,app/update-packaging,make_incremental_update.sh
 Other,app/update-packaging,removed-files_linux-arm64
-Other,app/update-packaging,removed-files_linux-i686
 Other,app/update-packaging,removed-files_linux-x86_64
 Other,app/update-packaging,removed-files_mac
 Other,app/update-packaging,removed-files_win-arm64
@@ -310,7 +311,7 @@ NSH,app/win/installer,shared.nsh
 NSI,app/win/installer,uninstaller.nsi
 .ini,app/win/installer,updater_append.ini
 Other,app/win,mozconfig
-Other,app/win,mozilla-140.patch
+Other,app/win,mozilla-153.patch
 Text,app/win,resource-hacker-config-updater.txt
 Text,app/win,resource-hacker-config.txt
 Other,app/win,update_exe
@@ -379,6 +380,8 @@ Javascript,chrome/content/zotero/actors,FeedAbstractParent.mjs
 Javascript,chrome/content/zotero/actors,MendeleyAuthChild.mjs
 Javascript,chrome/content/zotero/actors,MendeleyAuthParent.mjs
 Javascript,chrome/content/zotero/actors,PageDataChild.mjs
+Javascript,chrome/content/zotero/actors,ProfilerViewerChild.mjs
+Javascript,chrome/content/zotero/actors,ProfilerViewerParent.mjs
 Javascript,chrome/content/zotero/actors,SequoiaContextMenuChild.mjs
 Javascript,chrome/content/zotero/actors,SequoiaContextMenuParent.mjs
 Javascript,chrome/content/zotero/actors,SingleFileChild.mjs
@@ -389,8 +392,6 @@ Javascript,chrome/content/zotero/actors,ZoteroPrintParent.mjs
 Javascript,chrome/content/zotero/actors,actorUtils.mjs
 Javascript,chrome/content/zotero/actors/translation,http.js
 Javascript,chrome/content/zotero/actors/translation,translate_item.js
-Javascript,chrome/content/zotero,advancedSearch.js
-XHTML,chrome/content/zotero,advancedSearch.xhtml
 Javascript,chrome/content/zotero,attachLink.js
 XHTML,chrome/content/zotero,attachLink.xhtml
 Javascript,chrome/content/zotero,bibliography.js
@@ -400,6 +401,7 @@ Javascript,chrome/content/zotero,captcha.js
 XUL,chrome/content/zotero,captcha.xul
 Javascript,chrome/content/zotero,charsetMenu.js
 Javascript,chrome/content/zotero,collectionTree.jsx
+Javascript,chrome/content/zotero,collectionViewItemTree.jsx
 Javascript,chrome/content/zotero,commonDialog.js
 Javascript,chrome/content/zotero/components,annotation.jsx
 Javascript,chrome/content/zotero/components,button.jsx
@@ -432,6 +434,8 @@ Javascript,chrome/content/zotero,dictionaryManager.js
 XHTML,chrome/content/zotero,dictionaryManager.xhtml
 Javascript,chrome/content/zotero,editMenuOverlay.js
 Javascript,chrome/content/zotero/elements,abstractBox.js
+Javascript,chrome/content/zotero/elements,advancedSearchDeck.js
+Javascript,chrome/content/zotero/elements,advancedSearchPane.js
 Javascript,chrome/content/zotero/elements,annotationItemsPane.js
 Javascript,chrome/content/zotero/elements,annotationRow.js
 Javascript,chrome/content/zotero/elements,attachmentAnnotationsBox.js
@@ -449,13 +453,16 @@ Javascript,chrome/content/zotero/elements,contextNotesList.js
 Javascript,chrome/content/zotero/elements,contextPane.js
 Javascript,chrome/content/zotero/elements,duplicatesMergePane.js
 Javascript,chrome/content/zotero/elements,editableText.js
+Javascript,chrome/content/zotero/elements,fileRenamingSettings.js
 Javascript,chrome/content/zotero/elements,guidancePanel.js
 Javascript,chrome/content/zotero/elements,itemBox.js
 Javascript,chrome/content/zotero/elements,itemDetails.js
 Javascript,chrome/content/zotero/elements,itemMessagePane.js
 Javascript,chrome/content/zotero/elements,itemPane.js
+Javascript,chrome/content/zotero/elements,itemPaneContainerBase.mjs
+Javascript,chrome/content/zotero/elements,itemPaneCustomSection.js
 Javascript,chrome/content/zotero/elements,itemPaneHeader.js
-Javascript,chrome/content/zotero/elements,itemPaneSection.js
+Javascript,chrome/content/zotero/elements,itemPaneSectionElementBase.mjs
 Javascript,chrome/content/zotero/elements,itemPaneSidenav.js
 Javascript,chrome/content/zotero/elements,itemTreeMenuBar.js
 Javascript,chrome/content/zotero/elements,librariesCollectionsBox.js
@@ -467,9 +474,11 @@ Javascript,chrome/content/zotero/elements,noteRow.js
 Javascript,chrome/content/zotero/elements,notesBox.js
 Javascript,chrome/content/zotero/elements,notesContext.js
 Javascript,chrome/content/zotero/elements,publicationsLicenseInfo.js
+Javascript,chrome/content/zotero/elements,queryTextbox.js
 Javascript,chrome/content/zotero/elements,quickSearchTextbox.js
 Javascript,chrome/content/zotero/elements,relatedBox.js
 Javascript,chrome/content/zotero/elements,richlistCheckbox.js
+Javascript,chrome/content/zotero/elements,searchTextbox.js
 Javascript,chrome/content/zotero/elements,shadowAutocompleteInput.js
 Javascript,chrome/content/zotero/elements,splitMenuButton.js
 Javascript,chrome/content/zotero/elements,styleConfigurator.js
@@ -485,6 +494,8 @@ XHTML,chrome/content/zotero,exportOptions.xhtml
 Javascript,chrome/content/zotero,feedSettings.js
 XHTML,chrome/content/zotero,feedSettings.xhtml
 Javascript,chrome/content/zotero,fileInterface.js
+Javascript,chrome/content/zotero,fileRenamingDialog.js
+XHTML,chrome/content/zotero,fileRenamingDialog.xhtml
 Javascript,chrome/content/zotero,hardConfirmationDialog.js
 XHTML,chrome/content/zotero,hardConfirmationDialog.xhtml
 Javascript,chrome/content/zotero/import,citavi.js
@@ -493,6 +504,7 @@ Javascript,chrome/content/zotero/import,importWizard.js
 XHTML,chrome/content/zotero/import,importWizard.xhtml
 Javascript,chrome/content/zotero/import/mendeley,authViewer.js
 Javascript,chrome/content/zotero/import/mendeley,mendeleyAPIUtils.js
+Javascript,chrome/content/zotero/import/mendeley,mendeleyDecrypt.mjs
 Javascript,chrome/content/zotero/import/mendeley,mendeleyImport.mjs
 Javascript,chrome/content/zotero/import/mendeley,mendeleyOnlineMappings.js
 Javascript,chrome/content/zotero/import/mendeley,mendeleySchemaMap.js
@@ -514,6 +526,7 @@ HTML,chrome/content/zotero/integration,simpleEditor.html
 Javascript,chrome/content/zotero/integration,simpleEditor.js
 Javascript,chrome/content/zotero,itemTree.jsx
 Javascript,chrome/content/zotero,itemTreeColumns.jsx
+Javascript,chrome/content/zotero,itemTreeRow.js
 Javascript,chrome/content/zotero,libraryTree.js
 Javascript,chrome/content/zotero,locateManager.jsx
 XHTML,chrome/content/zotero,locateManager.xhtml
@@ -529,7 +542,9 @@ Javascript,chrome/content/zotero/modules,commandLineOptions.mjs
 Javascript,chrome/content/zotero/modules,errors.mjs
 Javascript,chrome/content/zotero/modules,filePicker.mjs
 Javascript,chrome/content/zotero/modules,immutable.js
+Javascript,chrome/content/zotero/modules,optionsAutoComplete.mjs
 Javascript,chrome/content/zotero/modules,rtf.mjs
+Javascript,chrome/content/zotero/modules,templates.mjs
 Javascript,chrome/content/zotero,newCollectionDialog.js
 XHTML,chrome/content/zotero,newCollectionDialog.xhtml
 Javascript,chrome/content/zotero,note.js
@@ -539,18 +554,16 @@ Javascript,chrome/content/zotero,platformKeys.js
 XHTML,chrome/content/zotero/preferences,librariesToSync.xhtml
 Javascript,chrome/content/zotero/preferences,preferences.js
 XHTML,chrome/content/zotero/preferences,preferences.xhtml
+Javascript,chrome/content/zotero/preferences,preferences_account.jsx
+XHTML,chrome/content/zotero/preferences,preferences_account.xhtml
 Javascript,chrome/content/zotero/preferences,preferences_advanced.js
 XHTML,chrome/content/zotero/preferences,preferences_advanced.xhtml
 Javascript,chrome/content/zotero/preferences,preferences_cite.jsx
 XHTML,chrome/content/zotero/preferences,preferences_cite.xhtml
 Javascript,chrome/content/zotero/preferences,preferences_export.jsx
 XHTML,chrome/content/zotero/preferences,preferences_export.xhtml
-Javascript,chrome/content/zotero/preferences,preferences_file_renaming.js
-XHTML,chrome/content/zotero/preferences,preferences_file_renaming.xhtml
 Javascript,chrome/content/zotero/preferences,preferences_general.js
 XHTML,chrome/content/zotero/preferences,preferences_general.xhtml
-Javascript,chrome/content/zotero/preferences,preferences_sync.jsx
-XHTML,chrome/content/zotero/preferences,preferences_sync.xhtml
 XHTML,chrome/content/zotero/preferences,preferences_sync_reset.xhtml
 XHTML,chrome/content/zotero/preferences,quickCopySiteEditor.xhtml
 Javascript,chrome/content/zotero,progressQueueDialog.jsx
@@ -573,13 +586,12 @@ Javascript,chrome/content/zotero,rtfScan.js
 XHTML,chrome/content/zotero,rtfScan.xhtml
 HTML,chrome/content/zotero,runJS.html
 Javascript,chrome/content/zotero,runJS.js
-Javascript,chrome/content/zotero,searchDialog.js
-XHTML,chrome/content/zotero,searchDialog.xhtml
 Javascript,chrome/content/zotero,selectItemsDialog.js
 XHTML,chrome/content/zotero,selectItemsDialog.xhtml
 Javascript,chrome/content/zotero/standalone,basicViewer.js
 XHTML,chrome/content/zotero/standalone,basicViewer.xhtml
 XHTML,chrome/content/zotero/standalone,hiddenWindow.xhtml
+XHTML,chrome/content/zotero/standalone,profilerViewer.xhtml
 Javascript,chrome/content/zotero/standalone,standalone.js
 XUL,chrome/content/zotero/standalone,updatesOverlay.xul
 Javascript,chrome/content/zotero,tabs.js
@@ -609,13 +621,11 @@ Javascript,chrome/content/zotero/xpcom,api.js
 Javascript,chrome/content/zotero/xpcom,attachmentReadObserver.js
 Javascript,chrome/content/zotero/xpcom,attachments.js
 Javascript,chrome/content/zotero/xpcom,bluebirdShim.mjs
-Javascript,chrome/content/zotero/xpcom,browserDownload.js
+Javascript,chrome/content/zotero/xpcom,browserRequest.js
 Javascript,chrome/content/zotero/xpcom,cite.js
 Javascript,chrome/content/zotero/xpcom,citeproc.js
-Javascript,chrome/content/zotero/xpcom,citeprocRsBridge.js
 Javascript,chrome/content/zotero/xpcom,collectionTreeRow.js
 Javascript,chrome/content/zotero/xpcom,commandLineHandler.js
-Javascript,chrome/content/zotero/xpcom,cookieSandbox.js
 Javascript,chrome/content/zotero/xpcom/data,cachedTypes.js
 Javascript,chrome/content/zotero/xpcom/data,collection.js
 Javascript,chrome/content/zotero/xpcom/data,collections.js
@@ -667,6 +677,7 @@ Javascript,chrome/content/zotero/xpcom,locateManager.js
 Javascript,chrome/content/zotero/xpcom,mime.js
 Javascript,chrome/content/zotero/xpcom,mimeTypeHandler.js
 Javascript,chrome/content/zotero/xpcom,notifier.js
+Javascript,chrome/content/zotero/xpcom,osKeyStore.js
 Javascript,chrome/content/zotero/xpcom/pdfWorker,manager.js
 Javascript,chrome/content/zotero/xpcom/pluginAPI,itemPaneManager.js
 Javascript,chrome/content/zotero/xpcom/pluginAPI,itemTreeManager.js
@@ -688,6 +699,8 @@ Javascript,chrome/content/zotero/xpcom,report.js
 Javascript,chrome/content/zotero/xpcom,retractions.js
 Javascript,chrome/content/zotero/xpcom,router.js
 Javascript,chrome/content/zotero/xpcom,schema.js
+Javascript,chrome/content/zotero/xpcom,sdt.js
+Javascript,chrome/content/zotero/xpcom,searchQuery.js
 Javascript,chrome/content/zotero/xpcom/server,saveSession.js
 Javascript,chrome/content/zotero/xpcom/server,server.js
 Javascript,chrome/content/zotero/xpcom/server,server_connector.js
@@ -726,6 +739,7 @@ Javascript,chrome/content/zotero/xpcom/translation,translate_firefox.js
 Javascript,chrome/content/zotero/xpcom/translation,translate_item.js
 Javascript,chrome/content/zotero/xpcom/translation,translators.js
 Javascript,chrome/content/zotero/xpcom,uiProperties.js
+Javascript,chrome/content/zotero/xpcom,undoHistory.js
 Javascript,chrome/content/zotero/xpcom,uri.js
 Javascript,chrome/content/zotero/xpcom,users.js
 Javascript,chrome/content/zotero/xpcom,utilities_internal.js
@@ -737,6 +751,7 @@ XHTML,chrome/content/zotero,zoteroPane.xhtml
 DTD_XML_def,chrome/locale/af-ZA/zotero,about.dtd
 DTD_XML_def,chrome/locale/af-ZA/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/af-ZA/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/af-ZA/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/af-ZA/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/af-ZA/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/af-ZA/zotero/mozilla,browserSets.ftl
@@ -764,6 +779,7 @@ DTD_XML_def,chrome/locale/ar/zotero,about.dtd
 JSON,chrome/locale/ar/zotero,connector.json
 DTD_XML_def,chrome/locale/ar/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/ar/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/ar/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/ar/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/ar/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/ar/zotero/mozilla,browserSets.ftl
@@ -791,6 +807,7 @@ DTD_XML_def,chrome/locale/bg-BG/zotero,about.dtd
 JSON,chrome/locale/bg-BG/zotero,connector.json
 DTD_XML_def,chrome/locale/bg-BG/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/bg-BG/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/bg-BG/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/bg-BG/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/bg-BG/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/bg-BG/zotero/mozilla,browserSets.ftl
@@ -818,6 +835,7 @@ DTD_XML_def,chrome/locale/br/zotero,about.dtd
 JSON,chrome/locale/br/zotero,connector.json
 DTD_XML_def,chrome/locale/br/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/br/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/br/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/br/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/br/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/br/zotero/mozilla,browserSets.ftl
@@ -845,6 +863,7 @@ DTD_XML_def,chrome/locale/ca-AD/zotero,about.dtd
 JSON,chrome/locale/ca-AD/zotero,connector.json
 DTD_XML_def,chrome/locale/ca-AD/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/ca-AD/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/ca-AD/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/ca-AD/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/ca-AD/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/ca-AD/zotero/mozilla,browserSets.ftl
@@ -872,6 +891,7 @@ DTD_XML_def,chrome/locale/cs-CZ/zotero,about.dtd
 JSON,chrome/locale/cs-CZ/zotero,connector.json
 DTD_XML_def,chrome/locale/cs-CZ/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/cs-CZ/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/cs-CZ/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/cs-CZ/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/cs-CZ/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/cs-CZ/zotero/mozilla,browserSets.ftl
@@ -899,6 +919,7 @@ DTD_XML_def,chrome/locale/da-DK/zotero,about.dtd
 JSON,chrome/locale/da-DK/zotero,connector.json
 DTD_XML_def,chrome/locale/da-DK/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/da-DK/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/da-DK/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/da-DK/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/da-DK/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/da-DK/zotero/mozilla,browserSets.ftl
@@ -926,6 +947,7 @@ DTD_XML_def,chrome/locale/de/zotero,about.dtd
 JSON,chrome/locale/de/zotero,connector.json
 DTD_XML_def,chrome/locale/de/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/de/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/de/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/de/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/de/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/de/zotero/mozilla,browserSets.ftl
@@ -953,6 +975,7 @@ DTD_XML_def,chrome/locale/el-GR/zotero,about.dtd
 JSON,chrome/locale/el-GR/zotero,connector.json
 DTD_XML_def,chrome/locale/el-GR/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/el-GR/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/el-GR/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/el-GR/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/el-GR/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/el-GR/zotero/mozilla,browserSets.ftl
@@ -979,6 +1002,7 @@ Java_prop,chrome/locale/el-GR/zotero,zotero.properties
 DTD_XML_def,chrome/locale/en-GB/zotero,about.dtd
 DTD_XML_def,chrome/locale/en-GB/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/en-GB/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/en-GB/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/en-GB/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/en-GB/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/en-GB/zotero/mozilla,browserSets.ftl
@@ -1008,6 +1032,7 @@ DTD_XML_def,chrome/locale/en-US/zotero,about.dtd
 JSON,chrome/locale/en-US/zotero,connector.json
 DTD_XML_def,chrome/locale/en-US/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/en-US/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/en-US/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/en-US/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/en-US/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/en-US/zotero/mozilla,browserSets.ftl
@@ -1037,6 +1062,7 @@ DTD_XML_def,chrome/locale/es-ES/zotero,about.dtd
 JSON,chrome/locale/es-ES/zotero,connector.json
 DTD_XML_def,chrome/locale/es-ES/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/es-ES/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/es-ES/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/es-ES/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/es-ES/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/es-ES/zotero/mozilla,browserSets.ftl
@@ -1063,6 +1089,7 @@ Java_prop,chrome/locale/es-ES/zotero,zotero.properties
 DTD_XML_def,chrome/locale/et-EE/zotero,about.dtd
 DTD_XML_def,chrome/locale/et-EE/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/et-EE/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/et-EE/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/et-EE/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/et-EE/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/et-EE/zotero/mozilla,browserSets.ftl
@@ -1089,6 +1116,7 @@ Java_prop,chrome/locale/et-EE/zotero,zotero.properties
 DTD_XML_def,chrome/locale/eu-ES/zotero,about.dtd
 DTD_XML_def,chrome/locale/eu-ES/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/eu-ES/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/eu-ES/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/eu-ES/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/eu-ES/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/eu-ES/zotero/mozilla,browserSets.ftl
@@ -1116,6 +1144,7 @@ DTD_XML_def,chrome/locale/fa/zotero,about.dtd
 JSON,chrome/locale/fa/zotero,connector.json
 DTD_XML_def,chrome/locale/fa/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/fa/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/fa/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/fa/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/fa/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/fa/zotero/mozilla,browserSets.ftl
@@ -1143,6 +1172,7 @@ DTD_XML_def,chrome/locale/fi-FI/zotero,about.dtd
 JSON,chrome/locale/fi-FI/zotero,connector.json
 DTD_XML_def,chrome/locale/fi-FI/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/fi-FI/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/fi-FI/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/fi-FI/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/fi-FI/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/fi-FI/zotero/mozilla,browserSets.ftl
@@ -1170,6 +1200,7 @@ DTD_XML_def,chrome/locale/fr-FR/zotero,about.dtd
 JSON,chrome/locale/fr-FR/zotero,connector.json
 DTD_XML_def,chrome/locale/fr-FR/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/fr-FR/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/fr-FR/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/fr-FR/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/fr-FR/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/fr-FR/zotero/mozilla,browserSets.ftl
@@ -1197,6 +1228,7 @@ DTD_XML_def,chrome/locale/gl-ES/zotero,about.dtd
 JSON,chrome/locale/gl-ES/zotero,connector.json
 DTD_XML_def,chrome/locale/gl-ES/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/gl-ES/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/gl-ES/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/gl-ES/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/gl-ES/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/gl-ES/zotero/mozilla,browserSets.ftl
@@ -1224,6 +1256,7 @@ DTD_XML_def,chrome/locale/he-IL/zotero,about.dtd
 JSON,chrome/locale/he-IL/zotero,connector.json
 DTD_XML_def,chrome/locale/he-IL/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/he-IL/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/he-IL/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/he-IL/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/he-IL/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/he-IL/zotero/mozilla,browserSets.ftl
@@ -1250,6 +1283,7 @@ Java_prop,chrome/locale/he-IL/zotero,zotero.properties
 DTD_XML_def,chrome/locale/hr-HR/zotero,about.dtd
 DTD_XML_def,chrome/locale/hr-HR/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/hr-HR/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/hr-HR/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/hr-HR/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/hr-HR/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/hr-HR/zotero/mozilla,browserSets.ftl
@@ -1277,6 +1311,7 @@ DTD_XML_def,chrome/locale/hu-HU/zotero,about.dtd
 JSON,chrome/locale/hu-HU/zotero,connector.json
 DTD_XML_def,chrome/locale/hu-HU/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/hu-HU/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/hu-HU/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/hu-HU/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/hu-HU/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/hu-HU/zotero/mozilla,browserSets.ftl
@@ -1303,6 +1338,7 @@ Java_prop,chrome/locale/hu-HU/zotero,zotero.properties
 DTD_XML_def,chrome/locale/id-ID/zotero,about.dtd
 DTD_XML_def,chrome/locale/id-ID/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/id-ID/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/id-ID/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/id-ID/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/id-ID/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/id-ID/zotero/mozilla,browserSets.ftl
@@ -1329,6 +1365,7 @@ Java_prop,chrome/locale/id-ID/zotero,zotero.properties
 DTD_XML_def,chrome/locale/is-IS/zotero,about.dtd
 DTD_XML_def,chrome/locale/is-IS/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/is-IS/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/is-IS/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/is-IS/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/is-IS/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/is-IS/zotero/mozilla,browserSets.ftl
@@ -1356,6 +1393,7 @@ DTD_XML_def,chrome/locale/it-IT/zotero,about.dtd
 JSON,chrome/locale/it-IT/zotero,connector.json
 DTD_XML_def,chrome/locale/it-IT/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/it-IT/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/it-IT/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/it-IT/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/it-IT/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/it-IT/zotero/mozilla,browserSets.ftl
@@ -1383,6 +1421,7 @@ DTD_XML_def,chrome/locale/ja-JP/zotero,about.dtd
 JSON,chrome/locale/ja-JP/zotero,connector.json
 DTD_XML_def,chrome/locale/ja-JP/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/ja-JP/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/ja-JP/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/ja-JP/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/ja-JP/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/ja-JP/zotero/mozilla,browserSets.ftl
@@ -1409,6 +1448,7 @@ Java_prop,chrome/locale/ja-JP/zotero,zotero.properties
 DTD_XML_def,chrome/locale/km/zotero,about.dtd
 DTD_XML_def,chrome/locale/km/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/km/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/km/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/km/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/km/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/km/zotero/mozilla,browserSets.ftl
@@ -1436,6 +1476,7 @@ DTD_XML_def,chrome/locale/ko-KR/zotero,about.dtd
 JSON,chrome/locale/ko-KR/zotero,connector.json
 DTD_XML_def,chrome/locale/ko-KR/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/ko-KR/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/ko-KR/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/ko-KR/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/ko-KR/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/ko-KR/zotero/mozilla,browserSets.ftl
@@ -1463,6 +1504,7 @@ DTD_XML_def,chrome/locale/lt-LT/zotero,about.dtd
 JSON,chrome/locale/lt-LT/zotero,connector.json
 DTD_XML_def,chrome/locale/lt-LT/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/lt-LT/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/lt-LT/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/lt-LT/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/lt-LT/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/lt-LT/zotero/mozilla,browserSets.ftl
@@ -1489,6 +1531,7 @@ Java_prop,chrome/locale/lt-LT/zotero,zotero.properties
 DTD_XML_def,chrome/locale/mn-MN/zotero,about.dtd
 DTD_XML_def,chrome/locale/mn-MN/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/mn-MN/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/mn-MN/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/mn-MN/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/mn-MN/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/mn-MN/zotero/mozilla,browserSets.ftl
@@ -1516,6 +1559,7 @@ DTD_XML_def,chrome/locale/nb-NO/zotero,about.dtd
 JSON,chrome/locale/nb-NO/zotero,connector.json
 DTD_XML_def,chrome/locale/nb-NO/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/nb-NO/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/nb-NO/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/nb-NO/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/nb-NO/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/nb-NO/zotero/mozilla,browserSets.ftl
@@ -1543,6 +1587,7 @@ DTD_XML_def,chrome/locale/nl-NL/zotero,about.dtd
 JSON,chrome/locale/nl-NL/zotero,connector.json
 DTD_XML_def,chrome/locale/nl-NL/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/nl-NL/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/nl-NL/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/nl-NL/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/nl-NL/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/nl-NL/zotero/mozilla,browserSets.ftl
@@ -1570,6 +1615,7 @@ DTD_XML_def,chrome/locale/nn-NO/zotero,about.dtd
 JSON,chrome/locale/nn-NO/zotero,connector.json
 DTD_XML_def,chrome/locale/nn-NO/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/nn-NO/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/nn-NO/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/nn-NO/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/nn-NO/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/nn-NO/zotero/mozilla,browserSets.ftl
@@ -1597,6 +1643,7 @@ DTD_XML_def,chrome/locale/pl-PL/zotero,about.dtd
 JSON,chrome/locale/pl-PL/zotero,connector.json
 DTD_XML_def,chrome/locale/pl-PL/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/pl-PL/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/pl-PL/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/pl-PL/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/pl-PL/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/pl-PL/zotero/mozilla,browserSets.ftl
@@ -1624,6 +1671,7 @@ DTD_XML_def,chrome/locale/pt-BR/zotero,about.dtd
 JSON,chrome/locale/pt-BR/zotero,connector.json
 DTD_XML_def,chrome/locale/pt-BR/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/pt-BR/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/pt-BR/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/pt-BR/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/pt-BR/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/pt-BR/zotero/mozilla,browserSets.ftl
@@ -1651,6 +1699,7 @@ DTD_XML_def,chrome/locale/pt-PT/zotero,about.dtd
 JSON,chrome/locale/pt-PT/zotero,connector.json
 DTD_XML_def,chrome/locale/pt-PT/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/pt-PT/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/pt-PT/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/pt-PT/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/pt-PT/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/pt-PT/zotero/mozilla,browserSets.ftl
@@ -1678,6 +1727,7 @@ DTD_XML_def,chrome/locale/ro-RO/zotero,about.dtd
 JSON,chrome/locale/ro-RO/zotero,connector.json
 DTD_XML_def,chrome/locale/ro-RO/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/ro-RO/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/ro-RO/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/ro-RO/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/ro-RO/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/ro-RO/zotero/mozilla,browserSets.ftl
@@ -1705,6 +1755,7 @@ DTD_XML_def,chrome/locale/ru-RU/zotero,about.dtd
 JSON,chrome/locale/ru-RU/zotero,connector.json
 DTD_XML_def,chrome/locale/ru-RU/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/ru-RU/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/ru-RU/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/ru-RU/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/ru-RU/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/ru-RU/zotero/mozilla,browserSets.ftl
@@ -1732,6 +1783,7 @@ DTD_XML_def,chrome/locale/sk-SK/zotero,about.dtd
 JSON,chrome/locale/sk-SK/zotero,connector.json
 DTD_XML_def,chrome/locale/sk-SK/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/sk-SK/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/sk-SK/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/sk-SK/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/sk-SK/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/sk-SK/zotero/mozilla,browserSets.ftl
@@ -1759,6 +1811,7 @@ DTD_XML_def,chrome/locale/sl-SI/zotero,about.dtd
 JSON,chrome/locale/sl-SI/zotero,connector.json
 DTD_XML_def,chrome/locale/sl-SI/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/sl-SI/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/sl-SI/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/sl-SI/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/sl-SI/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/sl-SI/zotero/mozilla,browserSets.ftl
@@ -1786,6 +1839,7 @@ DTD_XML_def,chrome/locale/sr-RS/zotero,about.dtd
 JSON,chrome/locale/sr-RS/zotero,connector.json
 DTD_XML_def,chrome/locale/sr-RS/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/sr-RS/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/sr-RS/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/sr-RS/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/sr-RS/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/sr-RS/zotero/mozilla,browserSets.ftl
@@ -1813,6 +1867,7 @@ DTD_XML_def,chrome/locale/sv-SE/zotero,about.dtd
 JSON,chrome/locale/sv-SE/zotero,connector.json
 DTD_XML_def,chrome/locale/sv-SE/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/sv-SE/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/sv-SE/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/sv-SE/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/sv-SE/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/sv-SE/zotero/mozilla,browserSets.ftl
@@ -1840,6 +1895,7 @@ DTD_XML_def,chrome/locale/ta/zotero,about.dtd
 JSON,chrome/locale/ta/zotero,connector.json
 DTD_XML_def,chrome/locale/ta/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/ta/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/ta/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/ta/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/ta/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/ta/zotero/mozilla,browserSets.ftl
@@ -1866,6 +1922,7 @@ Java_prop,chrome/locale/ta/zotero,zotero.properties
 DTD_XML_def,chrome/locale/th-TH/zotero,about.dtd
 DTD_XML_def,chrome/locale/th-TH/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/th-TH/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/th-TH/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/th-TH/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/th-TH/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/th-TH/zotero/mozilla,browserSets.ftl
@@ -1893,6 +1950,7 @@ DTD_XML_def,chrome/locale/tr-TR/zotero,about.dtd
 JSON,chrome/locale/tr-TR/zotero,connector.json
 DTD_XML_def,chrome/locale/tr-TR/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/tr-TR/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/tr-TR/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/tr-TR/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/tr-TR/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/tr-TR/zotero/mozilla,browserSets.ftl
@@ -1920,6 +1978,7 @@ DTD_XML_def,chrome/locale/uk-UA/zotero,about.dtd
 JSON,chrome/locale/uk-UA/zotero,connector.json
 DTD_XML_def,chrome/locale/uk-UA/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/uk-UA/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/uk-UA/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/uk-UA/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/uk-UA/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/uk-UA/zotero/mozilla,browserSets.ftl
@@ -1947,6 +2006,7 @@ DTD_XML_def,chrome/locale/vi-VN/zotero,about.dtd
 JSON,chrome/locale/vi-VN/zotero,connector.json
 DTD_XML_def,chrome/locale/vi-VN/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/vi-VN/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/vi-VN/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/vi-VN/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/vi-VN/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/vi-VN/zotero/mozilla,browserSets.ftl
@@ -1974,6 +2034,7 @@ DTD_XML_def,chrome/locale/zh-CN/zotero,about.dtd
 JSON,chrome/locale/zh-CN/zotero,connector.json
 DTD_XML_def,chrome/locale/zh-CN/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/zh-CN/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/zh-CN/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/zh-CN/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/zh-CN/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/zh-CN/zotero/mozilla,browserSets.ftl
@@ -2001,6 +2062,7 @@ DTD_XML_def,chrome/locale/zh-TW/zotero,about.dtd
 JSON,chrome/locale/zh-TW/zotero,connector.json
 DTD_XML_def,chrome/locale/zh-TW/zotero,csledit.dtd
 DTD_XML_def,chrome/locale/zh-TW/zotero,cslpreview.dtd
+FreeMarker_Java_template,chrome/locale/zh-TW/zotero,fileRenaming.ftl
 FreeMarker_Java_template,chrome/locale/zh-TW/zotero,integration.ftl
 FreeMarker_Java_template,chrome/locale/zh-TW/zotero/mozilla,arrowscrollbox.ftl
 FreeMarker_Java_template,chrome/locale/zh-TW/zotero/mozilla,browserSets.ftl
@@ -2024,8 +2086,10 @@ DTD_XML_def,chrome/locale/zh-TW/zotero,standalone.dtd
 DTD_XML_def,chrome/locale/zh-TW/zotero,zotero.dtd
 FreeMarker_Java_template,chrome/locale/zh-TW/zotero,zotero.ftl
 Java_prop,chrome/locale/zh-TW/zotero,zotero.properties
+SVG,chrome/skin/default/zotero/16/dark,annotations.svg
 SVG,chrome/skin/default/zotero/16/dark,loading.svg
 SVG,chrome/skin/default/zotero/16/dark,note-annotation.svg
+SVG,chrome/skin/default/zotero/16/light,annotations.svg
 SVG,chrome/skin/default/zotero/16/light,loading.svg
 SVG,chrome/skin/default/zotero/16/light,note-annotation.svg
 SVG,chrome/skin/default/zotero/16/universal,abstract.svg
@@ -2078,6 +2142,7 @@ SVG,chrome/skin/default/zotero/16/universal,folder.svg
 SVG,chrome/skin/default/zotero/16/universal,globe.svg
 SVG,chrome/skin/default/zotero/16/universal,google-scholar.svg
 SVG,chrome/skin/default/zotero/16/universal,grip.svg
+SVG,chrome/skin/default/zotero/16/universal,group-condition.svg
 SVG,chrome/skin/default/zotero/16/universal,group.svg
 SVG,chrome/skin/default/zotero/16/universal,hide.svg
 SVG,chrome/skin/default/zotero/16/universal,info.svg
@@ -2114,6 +2179,7 @@ SVG,chrome/skin/default/zotero/16/universal,preview-show.svg
 SVG,chrome/skin/default/zotero/16/universal,publications.svg
 SVG,chrome/skin/default/zotero/16/universal,refresh.svg
 SVG,chrome/skin/default/zotero/16/universal,reindex.svg
+SVG,chrome/skin/default/zotero/16/universal,related.svg
 SVG,chrome/skin/default/zotero/16/universal,rename-from-parent.svg
 SVG,chrome/skin/default/zotero/16/universal,rename.svg
 SVG,chrome/skin/default/zotero/16/universal,report.svg
@@ -2130,25 +2196,31 @@ SVG,chrome/skin/default/zotero/16/universal,tick.svg
 SVG,chrome/skin/default/zotero/16/universal,trash-empty.svg
 SVG,chrome/skin/default/zotero/16/universal,trash.svg
 SVG,chrome/skin/default/zotero/16/universal,unfiled.svg
+SVG,chrome/skin/default/zotero/16/universal,ungroup-condition.svg
 SVG,chrome/skin/default/zotero/16/universal,unlink.svg
 SVG,chrome/skin/default/zotero/16/universal,up.svg
 SVG,chrome/skin/default/zotero/16/universal,view.svg
 SVG,chrome/skin/default/zotero/16/universal,x-8.svg
+SVG,chrome/skin/default/zotero/20/universal,account.svg
 SVG,chrome/skin/default/zotero/20/universal,add-collection.svg
 SVG,chrome/skin/default/zotero/20/universal,add-file.svg
 SVG,chrome/skin/default/zotero/20/universal,add-item.svg
 SVG,chrome/skin/default/zotero/20/universal,arrow-left.svg
 SVG,chrome/skin/default/zotero/20/universal,arrow-right.svg
+SVG,chrome/skin/default/zotero/20/universal,checkmark.svg
 SVG,chrome/skin/default/zotero/20/universal,chevron-tabs.svg
 SVG,chrome/skin/default/zotero/20/universal,chevron.svg
 SVG,chrome/skin/default/zotero/20/universal,cite.svg
 SVG,chrome/skin/default/zotero/20/universal,cog.svg
+SVG,chrome/skin/default/zotero/20/universal,dialog-citation-preview.svg
 SVG,chrome/skin/default/zotero/20/universal,error.svg
 SVG,chrome/skin/default/zotero/20/universal,export.svg
 SVG,chrome/skin/default/zotero/20/universal,folder-open.svg
 SVG,chrome/skin/default/zotero/20/universal,go-to.svg
 SVG,chrome/skin/default/zotero/20/universal,magic-wand.svg
 SVG,chrome/skin/default/zotero/20/universal,magnifier.svg
+SVG,chrome/skin/default/zotero/20/universal,maximize.svg
+SVG,chrome/skin/default/zotero/20/universal,minimize.svg
 SVG,chrome/skin/default/zotero/20/universal,note.svg
 SVG,chrome/skin/default/zotero/20/universal,pdf-search-spinner.svg
 SVG,chrome/skin/default/zotero/20/universal,plus.svg
@@ -2773,10 +2845,12 @@ SVG,chrome/skin/default/zotero/mac,twisty.svg
 CSS,chrome/skin/default/zotero,overlay.css
 PNG,chrome/skin/default/zotero,progress_arcs.png
 CSS,chrome/skin/default/zotero,publicationsDialog.css
+CSS,chrome/skin/default/zotero,query-textbox.css
 CSS,chrome/skin/default/zotero/report,detail.css
 CSS,chrome/skin/default/zotero/report,detail_print.css
 CSS,chrome/skin/default/zotero/report,detail_screen.css
 PNG,chrome/skin/default/zotero,report_user.png
+CSS,chrome/skin/default/zotero,search-textbox.css
 PNG,chrome/skin/default/zotero,searchbar-dropmarker.png
 PNG,chrome/skin/default/zotero,searchbar-dropmarker@2x.png
 SVG,chrome/skin/default/zotero,tag-circle-border.svg
@@ -2837,11 +2911,11 @@ Javascript,js-build,build.js
 Javascript,js-build,clean.js
 Javascript,js-build,config.js
 Javascript,js-build,copy.js
+Javascript,js-build,document-worker.js
 Javascript,js-build,ftl-to-json.mjs
 Javascript,js-build,js.js
 Javascript,js-build,localize-ftl.mjs
 Javascript,js-build,note-editor.js
-Javascript,js-build,pdf-worker.js
 Javascript,js-build,reader.js
 Javascript,js-build,sass.js
 Javascript,js-build,symlinks.js
@@ -2852,9 +2926,6 @@ JSON,,package.json
 Javascript,resource,PluralForm.mjs
 Other,resource,ace
 Javascript,resource,allfaz.mjs
-Javascript,resource,citeproc_rs_wasm.js
-Other,resource,citeproc_rs_wasm_bg.wasm
-Javascript,resource,citeproc_rs_wasm_include.js
 Javascript,resource,classnames.js
 Javascript,resource,concurrentCaller.mjs
 Javascript,resource,config.mjs
@@ -3022,7 +3093,6 @@ CSS,scss/abstracts,_utilities.scss
 CSS,scss/abstracts,_variables.scss
 CSS,scss/base,_base.scss
 CSS,scss,bibliography.scss
-CSS,scss/components,_advancedSearch.scss
 CSS,scss/components,_annotation.scss
 CSS,scss/components,_autosuggest.scss
 CSS,scss/components,_banners.scss
@@ -3039,6 +3109,7 @@ CSS,scss/components,_editBibliographyDialog.scss
 CSS,scss/components,_editable.scss
 CSS,scss/components,_exportOptions.scss
 CSS,scss/components,_feedSettings.scss
+CSS,scss/components,_fileRenamingDialog.scss
 CSS,scss/components,_icons.scss
 CSS,scss/components,_import-wizard.scss
 CSS,scss/components,_input.scss
@@ -3076,6 +3147,7 @@ CSS,scss/components,_toolbarbutton.scss
 CSS,scss/components,_virtualized-table.scss
 CSS,scss/components,_window.scss
 CSS,scss/elements,_abstractBox.scss
+CSS,scss/elements,_advancedSearchPane.scss
 CSS,scss/elements,_annotationRow.scss
 CSS,scss/elements,_attachmentAnnotationsBox.scss
 CSS,scss/elements,_attachmentBox.scss
@@ -3089,6 +3161,7 @@ CSS,scss/elements,_colorPicker.scss
 CSS,scss/elements,_contextPane.scss
 CSS,scss/elements,_duplicatesMergePane.scss
 CSS,scss/elements,_editableText.scss
+CSS,scss/elements,_fileRenamingSettings.scss
 CSS,scss/elements,_guidancePanel.scss
 CSS,scss/elements,_infoBox.scss
 CSS,scss/elements,_itemDetails.scss
@@ -3136,12 +3209,11 @@ CSS,scss,merge.scss
 CSS,scss,preferences-mac.scss
 CSS,scss,preferences-win.scss
 CSS,scss,preferences.scss
+CSS,scss/preferences,_account.scss
 CSS,scss/preferences,_advanced.scss
 CSS,scss/preferences,_cite.scss
 CSS,scss/preferences,_export.scss
-CSS,scss/preferences,_file_renaming.scss
 CSS,scss/preferences,_general.scss
-CSS,scss/preferences,_sync.scss
 CSS,scss/preferences,_sync_reset.scss
 CSS,scss,progressQueueDialog.scss
 CSS,scss,progressWindow.scss
@@ -3193,18 +3265,19 @@ Javascript,test/tests,annotationsTest.js
 Javascript,test/tests,attachmentReadObserverTest.js
 Javascript,test/tests,attachmentsTest.js
 Javascript,test/tests,bibliographyTest.js
-Javascript,test/tests,browserDownloadTest.js
+Javascript,test/tests,browserRequestTest.js
 Javascript,test/tests,cachedTypesTest.js
 Javascript,test/tests,citationDialogTest.js
 Javascript,test/tests,citeTest.js
-Javascript,test/tests,citeprocRsBridgeTest.js
 Javascript,test/tests,collectionTest.js
 Javascript,test/tests,collectionTreeRowTest.js
 Javascript,test/tests,collectionTreeTest.js
+Javascript,test/tests,collectionViewItemTreeTest.js
 Javascript,test/tests,collectionsTest.js
 Javascript,test/tests,concurrentCallerTest.js
 Javascript,test/tests,creatorsTest.js
 Other,test/tests/data,.gitignore
+SQLite,test/tests/data,57173eea-07fc-3382-a3f7-548dff05def8@www.mendeley.com.sqlite
 Javascript,test/tests/data,Test Import Translator.js
 Javascript,test/tests/data,allTypesAndFields.js
 CSL,test/tests/data,apa.csl
@@ -3310,6 +3383,7 @@ Javascript,test/tests,feedsTest.js
 Javascript,test/tests,fileChangeWatcherTest.js
 Javascript,test/tests,fileHandlersTest.js
 Javascript,test/tests,fileInterfaceTest.js
+Javascript,test/tests,fileRenamingDialogTest.js
 Javascript,test/tests,fileTest.js
 Javascript,test/tests,folderImportTest.js
 Javascript,test/tests,fulltextTest.js
@@ -3323,12 +3397,13 @@ Javascript,test/tests,intlTest.js
 Javascript,test/tests,itemFieldsTest.js
 Javascript,test/tests,itemPaneTest.js
 Javascript,test/tests,itemTest.js
-Javascript,test/tests,itemTreeTest.js
+Javascript,test/tests,itemTreeRowTest.js
 Javascript,test/tests,itemsTest.js
 Javascript,test/tests,librariesTest.js
 Javascript,test/tests,libraryTest.js
 Javascript,test/tests,libraryTreeTest.js
 Javascript,test/tests,lookupTest.js
+Javascript,test/tests,mendeleyDecryptTest.js
 Javascript,test/tests,mendeleyImportTest.js
 Javascript,test/tests,mergeItemsTest.js
 Javascript,test/tests,mimeTest.js
@@ -3337,11 +3412,12 @@ Javascript,test/tests,noteeditorTest.js
 Javascript,test/tests,notifierTest.js
 Javascript,test/tests,openurlTest.js
 Javascript,test/tests,pluginAPITest.js
+Javascript,test/tests,preferences_accountTest.js
 Javascript,test/tests,preferences_advancedTest.js
-Javascript,test/tests,preferences_syncTest.js
 Javascript,test/tests,profileTest.js
 Javascript,test/tests,protocolHandlerTest.js
 Javascript,test/tests,proxyTest.js
+Javascript,test/tests,queryTextboxTest.js
 Javascript,test/tests,quickCopyTest.js
 Javascript,test/tests,readerTest.js
 Javascript,test/tests,recognizeDocumentTest.js
@@ -3350,6 +3426,8 @@ Javascript,test/tests,relationsTest.js
 Javascript,test/tests,retractionsTest.js
 Javascript,test/tests,rtfScanTest.js
 Javascript,test/tests,schemaTest.js
+Javascript,test/tests,sdtTest.js
+Javascript,test/tests,searchQueryTest.js
 Javascript,test/tests,searchTest.js
 Javascript,test/tests,serverTest.js
 Javascript,test/tests,server_connectorIntegrationTest.js
@@ -3371,11 +3449,15 @@ Javascript,test/tests,tabsTest.js
 Javascript,test/tests,tagSelectorTest.js
 Javascript,test/tests,tagsTest.js
 Javascript,test/tests,tagsboxTest.js
+Javascript,test/tests,templatesTest.js
 Javascript,test/tests,translateTest.js
 Javascript,test/tests,translatorsTest.js
+Javascript,test/tests,undoHistoryTest.js
 Javascript,test/tests,uriTest.js
+Javascript,test/tests,usersTest.js
 Javascript,test/tests,utilitiesSubmoduleTest.js
 Javascript,test/tests,utilities_internalTest.js
+Javascript,test/tests,virtualized-tableTest.js
 Javascript,test/tests,webdavTest.js
 Javascript,test/tests,zfsTest.js
 Javascript,test/tests,zoteroPaneTest.js
