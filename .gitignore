@@ -1,11 +1,16 @@
 # Ignore directory checking scripts
 check_environment.py
 
+# Ignore notebook tracking
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
 # Ignore .idea files
 .idea/
 
 # Ignore Pipfile.lock
 *.lock
+*.egg-info/
 
 # Ignore node_modules directory
 node_modules/

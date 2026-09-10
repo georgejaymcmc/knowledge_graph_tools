@@ -1,13 +1,13 @@
-File Type,Directory,File Name
-Other,,.babelrc
-Other,,.gitattributes
+FileType,Directory,FileName
+Other,ROOT,.babelrc
+Other,ROOT,.gitattributes
 YAML,.github/workflows,ci.yml
-Other,,.gitignore
-Other,,.gitmodules
-Markdown,,CLAUDE.md
-Markdown,,CONTRIBUTING.md
-Other,,COPYING
-Markdown,,README.md
+Other,ROOT,.gitignore
+Other,ROOT,.gitmodules
+Markdown,ROOT,CLAUDE.md
+Markdown,ROOT,CONTRIBUTING.md
+Other,ROOT,COPYING
+Markdown,ROOT,README.md
 Other,app,.gitignore
 Markdown,app,README.md
 .ini,app/assets,application.ini
@@ -318,7 +318,7 @@ Other,app/win,update_exe
 Other,app/win,updater.exe.tar.xz
 Other,app/win,zotero.exe.tar.xz
 ICO,app/win,zotero.ico
-.manifest,,chrome.manifest
+.manifest,ROOT,chrome.manifest
 Javascript,chrome/content/scaffold,content.js
 Javascript,chrome/content/scaffold,load.js
 XHTML,chrome/content/scaffold,load.xhtml
@@ -2903,7 +2903,7 @@ SVG,chrome/skin/default/zotero,zotero-z-32px-australis.svg
 CSS,chrome/skin/default/zotero,zotero.css
 SVG,chrome/skin/default/zotero,zotero.svg
 Javascript,defaults/preferences,zotero.js
-Javascript,,eslint.config.mjs
+Javascript,ROOT,eslint.config.mjs
 Other,js-build,.eslintrc
 Javascript,js-build,babel-worker.js
 Javascript,js-build,browserify.js
@@ -2921,8 +2921,8 @@ Javascript,js-build,sass.js
 Javascript,js-build,symlinks.js
 Javascript,js-build,utils.js
 Javascript,js-build,watch.js
-JSON,,package-lock.json
-JSON,,package.json
+JSON,ROOT,package-lock.json
+JSON,ROOT,package.json
 Javascript,resource,PluralForm.mjs
 Other,resource,ace
 Javascript,resource,allfaz.mjs
@@ -3486,5 +3486,5 @@ Other,types/gecko/subs,RFPTargetConstants.sys.d.mts
 Other,types/gecko/subs,Readerable.sys.d.mts
 Other,types/gecko/subs,schema.sys.d.mts
 JSON,types/gecko,tsconfig.json
-RDF,,update.rdf
-Other,,version
+RDF,ROOT,update.rdf
+Other,ROOT,version

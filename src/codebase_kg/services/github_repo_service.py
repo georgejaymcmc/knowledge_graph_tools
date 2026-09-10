@@ -140,7 +140,7 @@ class GithubRepoService:
 
         # Fetch the full repo tree recursively
         url = f"https://api.github.com/repos/{owner}/{repo}/git/trees/{branch}?recursive=1"
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=self.headers, timeout=15)
         if response.status_code != 200:
             raise RuntimeError(f"GitHub API error {response.status_code}")
 
@@ -221,9 +221,9 @@ class GithubRepoService:
                 file_type = FILE_TYPES.get(ext, DEFAULT_FILE_TYPE)
 
                 classified_files.append({
-                    "File Type": file_type,
+                    "FileType": file_type,
                     "Directory": directory,
-                    "File Name": file_name
+                    "FileName": file_name
                 })
 
                 if ext not in FILE_TYPES:
@@ -243,11 +243,24 @@ class GithubRepoService:
 
         df = pd.DataFrame(files)
 
+        # -------------------------------------------------------------
+        # Clean Directory Column: Replace empty strings or nulls with 'ROOT'
+        # -------------------------------------------------------------
+        # 1. Replace empty strings "" with 'ROOT'
+        df["Directory"] = df["Directory"].replace("", "ROOT")
+        # 2. Catch any unexpected NaN/Null values just in case
+        df["Directory"] = df["Directory"].fillna("ROOT")
+
         # --------------------------
         # Fixed output folder
         # --------------------------
-        project_root = Path(__file__).resolve().parents[1]  # src/codebase_kg
-        output_folder = project_root / "neo4j_imports"  # E:/Projects/.../neo4j_imports
+        # project_root = Path(__file__).resolve().parents[1]  # src/codebase_kg
+        this_file = Path(__file__).resolve()
+        # this_file.parent is "services"
+        # this_file.parent.parent is "codebase_kg"
+        target_dir = this_file.parent.parent
+
+        output_folder = target_dir / "neo4j_imports"  # E:/Projects/.../neo4j_imports
         output_folder.mkdir(parents=True, exist_ok=True)
 
         # Final output path
@@ -256,8 +269,11 @@ class GithubRepoService:
         # Save CSV
         df.to_csv(output_path, index=False, encoding="utf-8")
 
+        # Explicit confirmation printout for Jupyter/Terminal context
+        print(f"📦 Dataframe successfully dumped to: {output_path.resolve()}")
+
         # Frequency counts
-        counts = df["File Type"].value_counts()
+        counts = df["FileType"].value_counts()
 
         total_files = len(df)
 
