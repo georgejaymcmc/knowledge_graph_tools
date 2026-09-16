@@ -1,5 +1,17 @@
 Metadata-Version: 2.4
 Name: knowledge_graph_tools
 Version: 0.1.0
+Requires-Python: >=3.14
 License-File: LICENSE
+Requires-Dist: python-dotenv
+Requires-Dist: neo4j
+Requires-Dist: click
+Requires-Dist: pygithub
+Requires-Dist: pandas
+Requires-Dist: yfiles-jupyter-graphs-for-neo4j>=2.0.0
+Requires-Dist: ipykernel>=7.3.0
+Requires-Dist: yfiles-jupyter-graphs>=2.0.0
+Requires-Dist: ipywidgets>=8.1.9
+Requires-Dist: jupyterlab>=4.6.3
+Requires-Dist: gradio>=6.27.0
 Dynamic: license-file

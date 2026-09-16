@@ -10,7 +10,7 @@ check_environment.py
 
 # Ignore Pipfile.lock
 *.lock
-*.egg-info/
+**/.egg-info/
 
 # Ignore node_modules directory
 node_modules/

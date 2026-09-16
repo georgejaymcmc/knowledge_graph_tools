@@ -1,0 +1,11 @@
+python-dotenv
+neo4j
+click
+pygithub
+pandas
+yfiles-jupyter-graphs-for-neo4j>=2.0.0
+ipykernel>=7.3.0
+yfiles-jupyter-graphs>=2.0.0
+ipywidgets>=8.1.9
+jupyterlab>=4.6.3
+gradio>=6.27.0
