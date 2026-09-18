@@ -287,3 +287,60 @@ class GithubRepoService:
             "file_type_counts": counts.to_dict(),
             "unknown_extensions": sorted(list(unknown_exts))
         }
+
+    def get_file_content(self, owner, repo, file_path):
+        """
+        Retrieve the contents of a file from a GitHub repository.
+
+        Parameters
+        ----------
+        owner : str
+            GitHub repository owner.
+        repo : str
+            GitHub repository name.
+        file_path : str
+            Path to the file relative to the repository root.
+
+        Returns
+        -------
+        str
+            File contents.
+        """
+
+        try:
+            url = f"https://api.github.com/repos/{owner}/{repo}/contents/{file_path}"
+
+            response = requests.get(
+                url,
+                headers=self.headers,
+                timeout=10
+            )
+
+            if response.status_code != 200:
+                raise RuntimeError(
+                    f"GitHub API error {response.status_code}: "
+                    f"{response.text}"
+                )
+
+            data = response.json()
+
+            # The Contents API returns a list when the path is a directory
+            if isinstance(data, list):
+                raise ValueError(
+                    f"'{file_path}' is a directory, not a file."
+                )
+
+            # GitHub normally returns file content as base64
+            if data.get("encoding") != "base64":
+                raise RuntimeError(
+                    f"Unexpected GitHub encoding: {data.get('encoding')}"
+                )
+
+            import base64
+
+            return base64.b64decode(data["content"]).decode("utf-8")
+
+        except Exception as e:
+            raise RuntimeError(
+                f"Unable to retrieve '{file_path}' from GitHub: {e}"
+            ) from e
