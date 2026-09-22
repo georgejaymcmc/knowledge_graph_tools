@@ -34,4 +34,26 @@ RETURN
 ORDER BY file_name, directory
 ```
 
+### Return each directory, its total number of files, and the file types represented in that directory with
+```
+MATCH (d:Directory)-[:CONTAINS]->(f:FileName)
+      -[:IS_TYPE_OF]->(ft:FileType)
 
+RETURN
+    d.name AS directory,
+    count(DISTINCT f) AS file_count,
+    collect(DISTINCT ft.type) AS file_types
+ORDER BY file_count DESC, directory
+```
+
+### Number of files per file type within each directory
+```
+MATCH (d:Directory)-[:CONTAINS]->(f:FileName)
+      -[:IS_TYPE_OF]->(ft:FileType)
+
+RETURN
+    d.name AS directory,
+    ft.type AS file_type,
+    count(DISTINCT f) AS file_count
+ORDER BY directory, file_count DESC, file_type
+```
