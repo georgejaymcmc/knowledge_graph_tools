@@ -24,3 +24,16 @@ flowchart TD
     F<-->G
     G-->H
 ```
+
+### Gradio Interface
+```mermaid
+sequenceDiagram   
+    participant A as Python CLI
+    participant B as NEO4J
+    participant C as GITHUB
+    
+    A->>B: 1. Query Neo4j for list of files
+    B->>A: 2. List files in a Gradio SelectBox
+    A->>C: 3. Select file to get syntax
+    C->>A: 4. Return file contents for display in Gradio
+```
