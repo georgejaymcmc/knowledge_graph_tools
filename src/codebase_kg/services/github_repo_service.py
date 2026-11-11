@@ -231,6 +231,63 @@ class GithubRepoService:
 
         return classified_files, unknown_extensions
 
+    def get_repository_files(self, owner, repo):
+        """
+        Return repository files and metadata from the GitHub Git Trees API.
+
+        Returns a list of dictionaries containing:
+        path, file_name, directory, extension, size and sha.
+        """
+
+        repo_data = self._repo_data(owner, repo)
+        branch = repo_data.get("default_branch", "main")
+
+        url = (
+            f"https://api.github.com/repos/{owner}/{repo}"
+            f"/git/trees/{branch}?recursive=1"
+        )
+
+        response = requests.get(
+            url,
+            headers=self.headers,
+            timeout=30
+        )
+
+        if response.status_code != 200:
+            raise RuntimeError(
+                f"GitHub API error {response.status_code}: {response.text}"
+            )
+
+        data = response.json()
+
+        if data.get("truncated"):
+            raise RuntimeError(
+                "GitHub returned a truncated repository tree. "
+                "A paginated or subtree-based retrieval strategy is required."
+            )
+
+        records = []
+
+        for item in data.get("tree", []):
+
+            if item.get("type") != "blob":
+                continue
+
+            file_path = item["path"]
+            path = Path(file_path)
+
+            records.append({
+                "path": file_path,
+                "file_name": path.name,
+                "directory": path.parent.as_posix(),
+                "extension": path.suffix.lower(),
+                "size": item.get("size"),
+                "sha": item.get("sha"),
+                "type": item.get("type"),
+            })
+
+        return records
+
     # -----------------------------
     # Public CLI-exposed method
     # -----------------------------
@@ -343,4 +400,45 @@ class GithubRepoService:
         except Exception as e:
             raise RuntimeError(
                 f"Unable to retrieve '{file_path}' from GitHub: {e}"
+            ) from e
+
+    def get_blob_content(self, owner, repo, blob_sha):
+        """
+        Retrieve file contents using the Git blob SHA.
+
+        Returns the original file contents as bytes.
+        """
+
+        import base64
+
+        url = (
+            f"https://api.github.com/repos/{owner}/{repo}"
+            f"/git/blobs/{blob_sha}"
+        )
+
+        try:
+            response = requests.get(
+                url,
+                headers=self.headers,
+                timeout=30
+            )
+
+            if response.status_code != 200:
+                raise RuntimeError(
+                    f"GitHub API error {response.status_code}: "
+                    f"{response.text}"
+                )
+
+            data = response.json()
+
+            if data.get("encoding") != "base64":
+                raise RuntimeError(
+                    f"Unexpected GitHub encoding: {data.get('encoding')}"
+                )
+
+            return base64.b64decode(data["content"])
+
+        except Exception as e:
+            raise RuntimeError(
+                f"Unable to retrieve blob '{blob_sha}': {e}"
             ) from e

@@ -12,3 +12,4 @@ gradio>=6.27.0
 tree-sitter>=0.26.1
 tree-sitter-javascript>=0.25.0
 tree-sitter-typescript>=0.23.2
+tree-sitter-language-pack>=1.25.0

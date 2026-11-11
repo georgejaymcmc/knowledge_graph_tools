@@ -17,4 +17,5 @@ Requires-Dist: gradio>=6.27.0
 Requires-Dist: tree-sitter>=0.26.1
 Requires-Dist: tree-sitter-javascript>=0.25.0
 Requires-Dist: tree-sitter-typescript>=0.23.2
+Requires-Dist: tree-sitter-language-pack>=1.25.0
 Dynamic: license-file
