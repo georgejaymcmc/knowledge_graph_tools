@@ -42,3 +42,10 @@ certificate.pem
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# Python pickle files
+*.pkl
+*.pickle
+
+# Generated DataFrame backups
+artifacts/pickles/
